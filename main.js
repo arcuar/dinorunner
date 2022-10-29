@@ -7,6 +7,13 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = 350;
 
+const imgDino = new Image();
+imgDino.src = "316DC2E7-592E-4899-A0AA-765075912FFE.jpeg";
+
+const imgEnermy = new Image();
+imgEnermy.src = "enermy.jpg";
+
+// 초록 사각형 공룡
 const dino = {
   x: 100,
   y: 200,
@@ -18,9 +25,20 @@ const dino = {
   },
 };
 
+// 이미지 공룡
+const dino2 = {
+  x: 100,
+  y: 200,
+  width: 100,
+  height: 100,
+  draw() {
+    ctx.drawImage(imgDino, this.x, this.y, this.width, this.height);
+  },
+};
+
 const ground = {
   x: 0,
-  y: 200 + dino.height,
+  y: 200 + dino2.height,
   width: canvas.width,
   height: 2,
   draw() {
@@ -32,13 +50,12 @@ const ground = {
 class Enermy {
   constructor() {
     this.x = canvas.width;
-    this.y = 200 + dino.height / 2;
+    this.y = 200 + dino2.height / 2;
     this.width = 50;
     this.height = 50;
   }
   draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.drawImage(imgEnermy, this.x, this.y, this.width, this.height);
   }
 }
 
@@ -66,7 +83,7 @@ function main() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (jump == true) {
-    dino.y -= jumpSpeed;
+    dino2.y -= jumpSpeed;
     jumpSpeed--;
     if (jumpSpeed < -20) {
       jump = false;
@@ -81,10 +98,10 @@ function main() {
     document.querySelector("h1").innerText = score;
   }
 
-  dino.draw();
+  dino2.draw();
   ground.draw();
   enermys.forEach((a) => {
-    crashing(dino, a);
+    crashing(dino2, a);
     if (a.x <= 0 - a.width) {
       enermys.splice(0, 1);
     }
@@ -95,13 +112,12 @@ function main() {
 
 function crashing(dino, enermy) {
   if (
-    (dino.x < enermy.x + enermy.width) &
-    (enermy.x < dino.x + dino.width) &
-    (enermy.y - (dino.y + dino.height) < 0)
+    (dino2.x < enermy.x + enermy.width) &
+    (enermy.x < dino2.x + dino2.width) &
+    (enermy.y - (dino2.y + dino2.height) < 0)
   ) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     cancelAnimationFrame(animation);
-    console.log(enermy.x);
   }
 }
 
