@@ -63,6 +63,8 @@ let timer = 0;
 const enermys = [];
 let score = 0;
 
+let enermySpeed = 5;
+
 let jump = false;
 let jumpSpeed = 20;
 document.addEventListener("keydown", function (e) {
@@ -79,6 +81,7 @@ function main() {
   animation = requestAnimationFrame(main);
 
   timer++;
+  enermySpeed += 0.01;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -105,7 +108,7 @@ function main() {
     if (a.x <= 0 - a.width) {
       enermys.splice(0, 1);
     }
-    a.x -= 7;
+    a.x -= enermySpeed;
     a.draw();
   });
 }
