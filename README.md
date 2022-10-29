@@ -1,2 +1,2 @@
 # dinorunner
-https://clever-blini-e1df5e.netlify.app/
+https://dino-runner-by-nunnaerim.netlify.app/
